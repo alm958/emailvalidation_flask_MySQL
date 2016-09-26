@@ -1,0 +1,36 @@
+<html>
+    <head>
+       <title>Email Validation</title>
+       <link rel="stylesheet" type="text/css" href="../static/styles/master.css">
+    </head>
+    <body>
+        <div class="feedback">
+            <p>The email address you entered ({{list_emails[(list_emails|length)-1]['email']}}) is a VALID email address! Thank you!</p>
+        </div>
+        <h3>Email Addresses Entered:</h3>
+        <div class="emails">
+            {% for email in list_emails: %}
+                <p>
+                    <span>{{ email['email']}}</span>
+                    <span>{{email['created_at']}}</span>
+                </p>
+                <hr>
+            {% endfor %}
+        </div>
+        <h4>Enter email to remove.</h4>
+        <form action="/remove" method="post">
+            email : <input type="text" name="email" value="">
+            <input type='submit' value='Submit'>
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/" method="get">
+            <input type='submit' value='return to email entry'>
+        </form>
+    </body>
+</html>

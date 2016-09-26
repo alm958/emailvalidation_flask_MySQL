@@ -1,0 +1,35 @@
+.feedback{
+    background-color: lightgreen;
+    width: 400px;
+    height: auto;
+    min-height: 75px
+    margin:5px;
+    padding: 5px;
+    text-align: center;
+    line-height: 1.5em;
+}
+.emails{
+    display: inline-block;
+    width:auto;
+    min-width: 375px;
+    height:auto;
+    margin-left:15px ;
+    padding-left: 5px;
+}
+.entry{
+    margin:25px ;
+    padding-left: 15px;
+}
+
+.emails p{
+    display: flex;
+    justify-content: space-between;
+    line-height: 0.8em;
+    margin: 5px 0;
+    padding: 0;
+}
+hr{
+    line-height: 0.6em;
+    margin: 0;
+    padding: 0;
+}

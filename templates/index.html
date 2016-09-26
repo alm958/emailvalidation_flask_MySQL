@@ -1,0 +1,22 @@
+<html>
+    <head>
+       <title>Email Validation</title>
+       <link rel="stylesheet" type="text/css" href="../static/styles/master.css">
+    </head>
+    <body>
+        <div class="entry">
+            <h3>Enter email to add to database</h3>
+            <form action="/update" method="post">
+                email : <input type="text" name="email" value="">
+                <input type='submit' value='Submit'>
+            </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>
