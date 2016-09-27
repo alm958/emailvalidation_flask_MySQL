@@ -2,9 +2,18 @@
     background-color: lightgreen;
     width: 400px;
     height: auto;
-    min-height: 75px
-    margin:5px;
-    padding: 5px;
+    min-height: 90px
+    margin:3px;
+    padding: 3px;
+    text-align: center;
+    line-height: 1.5em;
+}
+.holder{
+    background-color: white;
+    width: 400px;
+    height: 80px;
+    margin:3px;
+    padding: 3px;
     text-align: center;
     line-height: 1.5em;
 }
@@ -13,6 +22,8 @@
     width:auto;
     min-width: 375px;
     height:auto;
+    max-height: 370px;
+    overflow-y: scroll;
     margin-left:15px ;
     padding-left: 5px;
 }
@@ -32,4 +43,12 @@ hr{
     line-height: 0.6em;
     margin: 0;
     padding: 0;
+}
+p.messages{
+    color: red;
+    font-weight: bolder;
+}
+.msg{
+    color: red;
+    font-weight: bolder;
 }

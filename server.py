@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, redirect, session, flash, url_for
 # import the Connector function
 from mysqlconnection import MySQLConnector
 import re
@@ -17,6 +17,8 @@ def index():
 
 @app.route('/update', methods=['POST'])
 def update():
+    query = "SELECT email FROM emails"                           # define your query
+    emails = mysql.query_db(query)
     errors = False
     if len(request.form['email']) < 1:
         errors = True
@@ -24,9 +26,13 @@ def update():
     elif not EMAIL_REGEX.match(request.form['email']):
         errors = True
         flash("Invalid e-mail address. Enter e-mail.")
+    elif {'email' : request.form['email']} in emails:
+        errors = True
+        flash("The e-mail address entered already exists in the database.")
     if errors:
         return redirect('/')
     else:
+        session['insert'] = 1
         query = "INSERT INTO emails (email, created_at, updated_at) VALUES (:email, NOW(), NOW())"
         data = {'email': request.form['email']}
         mysql.query_db(query, data)
@@ -37,10 +43,11 @@ def update():
 def email_list():
     query = "SELECT * FROM emails"                           # define your query
     emails = mysql.query_db(query)                           # run query with query_db()
-    return render_template('email_list.html', list_emails=emails) # pass data to our template
+    return render_template('email_list.html', list_emails=emails, insert = session['insert']) # pass data to our template
 
 @app.route('/remove', methods=['POST'])
 def remove():
+    session['insert'] = 0
     errors = False
     if len(request.form['email']) < 1:
         errors = True
@@ -48,6 +55,12 @@ def remove():
     elif not EMAIL_REGEX.match(request.form['email']):
         errors = True
         flash("Invalid e-mail address. Enter e-mail.")
+    else:
+        query = "SELECT email FROM emails"                           # define your query
+        emails = mysql.query_db(query)
+        if not {'email' : request.form['email']} in emails:
+            errors = True
+            flash("The e-mail address entered was not found in the database.")
     if errors:
         return redirect('/success')
     else:
